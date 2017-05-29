@@ -16,7 +16,7 @@ def load_type(fname):
         elif type_val == 3:
             cnt = int(sheet_in.cell(j, 2).value)
             list_data.append(cnt)
-            for i in xrange(cnt):
+            for i in range(cnt):
                 list_data.append(sheet_in.cell(j, i + 3).value)
 
         type_list.append(list_data)
@@ -40,7 +40,7 @@ def bigger0(char):
 
 def get_real(typ, d_in):
     d_out = []
-    for i in xrange(d_in.__len__()):
+    for i in range(d_in.__len__()):
         type_data = typ[i][0]
         if type_data == 1:
             if d_in[i] == '' or d_in[i] == ' ':
@@ -60,7 +60,7 @@ def get_real(typ, d_in):
             else:
                 cnt_list = typ[i][1]
                 ret = 0
-                for j in xrange(cnt_list):
+                for j in range(cnt_list):
                     if d_in[i] == typ[i][j+2]:
                         ret = j+1
                 d_out.append(ret)
@@ -70,7 +70,7 @@ def get_real(typ, d_in):
 
 def sel_max(data):
     ret_ind = []
-    for i in xrange(data.__len__()):
+    for i in range(data.__len__()):
         if data[i][0] == 1:
             ret_ind.append(0)
         else:

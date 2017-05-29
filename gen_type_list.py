@@ -3,11 +3,11 @@ import xlrd
 import xlwt
 
 
-print "Reading Data file!"
+print("Reading Data file!")
 book_in = xlrd.open_workbook("Data set external prepared.xlsx")
 sheet_in1 = book_in.sheet_by_index(0)
 
-print "Reading Type file!"
+print("Reading Type file!")
 COLS = 578
 ROWS = 186908
 book_type = xlrd.open_workbook("Attribute List.xlsx")
@@ -22,7 +22,7 @@ for j in range(COLS):
     MIN_VAL = 999999999
     list_data = []
     list_count = 0
-    print j
+    print(j)
 
     type = sheet_in2.cell(j, 1).value
     sheet_out1.write(j, 0, sheet_in2.cell(j, 0).value)
@@ -58,7 +58,4 @@ for j in range(COLS):
         sheet_out1.write(j, 2, list_count-1)
 
 book_out1.save("Type.xls")
-print "Generated Type List file successfully!"
-
-
-
+print("Generated Type List file successfully!")
