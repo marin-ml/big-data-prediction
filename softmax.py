@@ -15,7 +15,7 @@ def xaver_init(n_inputs, n_outputs, uniform = True):
 
 def acc(d1, d2, col_cnt):
     cnt = 0
-    for i in xrange(col_cnt):
+    for i in range(col_cnt):
         if d1[i] == d2[i]:
             cnt += 1
 
@@ -24,7 +24,7 @@ def acc(d1, d2, col_cnt):
 
 def sel_max(data, col_cnt):
     ret_ind = []
-    for i in xrange(col_cnt):
+    for i in range(col_cnt):
         if data[i][0] == 1:
             ret_ind.append(0)
         else:
@@ -45,47 +45,47 @@ y_verification = []
 
 COLS1 = COLS3 = COLS4 = COLS2 = 0
 
-print "Loading Training data 1..."
+print("Loading Training data 1...")
 book_x = xlrd.open_workbook("Training1.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 COLS1 = 65000
 
-for i in xrange(COLS1):
+for i in range(COLS1):
     x_training.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_training.append(expand(int(sheet_y.cell(i, 0).value)))
 
-print "Loading Training data 2..."
+print("Loading Training data 2...")
 book_x = xlrd.open_workbook("Training2.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 COLS2 = 65000
 
-for i in xrange(COLS2):
+for i in range(COLS2):
     x_training.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_training.append(expand(int(sheet_y.cell(i, 0).value)))
 
-print "Loading Training data 3..."
+print("Loading Training data 3...")
 book_x = xlrd.open_workbook("Training3.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 COLS3 = 19999
 
-for i in xrange(COLS3):
+for i in range(COLS3):
     x_training.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_training.append(expand(int(sheet_y.cell(i, 0).value)))
 
-print "Loading Verification data..."
+print("Loading Verification data...")
 book_x = xlrd.open_workbook("Verification.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 COLS4 = 16906
 
-for i in xrange(COLS4):
+for i in range(COLS4):
     x_verification.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_verification.append(expand(int(sheet_y.cell(i, 0).value)))
 
@@ -117,7 +117,7 @@ sess = tf.Session()
 sess.run(init)
 saver = tf.train.Saver()
 
-print ('load learning...')
+print('load learning...')
 saver.restore(sess, 'model.ckpt')
 
 cols = COLS1 + COLS2 + COLS3
@@ -132,11 +132,8 @@ for step in range(5000):
         ret2 = sess.run(t1, feed_dict={x: x_verification})
         ret3 = sel_max(ret2, COLS4)
         acc2 = 100 - acc(ret3, sel_max(y_verification, COLS4), COLS4)*100
-        print step, sess.run(cost, feed_dict={x: x_training, y: y_training}), acc1, acc2, [ret1.count(0), ret1.count(1)]
+        print(step, sess.run(cost, feed_dict={x: x_training, y: y_training}), acc1, acc2, [ret1.count(0), ret1.count(1)])
 
         saver.save(sess, 'model.ckpt')
 
-print ("Optimization Finished!")
-
-
-
+print("Optimization Finished!")
