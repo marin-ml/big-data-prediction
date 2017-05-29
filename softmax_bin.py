@@ -15,7 +15,7 @@ def xaver_init(n_inputs, n_outputs, uniform = True):
 
 def acc(d1, d2):
     cnt = 0
-    for ii in xrange(d1.__len__()):
+    for ii in range(d1.__len__()):
         if d1[ii] == d2[ii]:
             cnt += 1
 
@@ -24,7 +24,7 @@ def acc(d1, d2):
 
 def sel_max(data):
     ret_ind = []
-    for ii in xrange(data.__len__()):
+    for ii in range(data.__len__()):
         if data[ii][0] == 1:
             ret_ind.append(0)
         else:
@@ -44,43 +44,43 @@ y_training = []
 x_verification = []
 y_verification = []
 
-print "Loading Training data 1..."
+print("Loading Training data 1...")
 book_x = xlrd.open_workbook("Training1.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 
-for i in xrange(sheet_x1.nrows):
+for i in range(sheet_x1.nrows):
     x_training.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_training.append(expand(int(sheet_y.cell(i, 0).value)))
 
-print "Loading Training data 2..."
+print("Loading Training data 2...")
 book_x = xlrd.open_workbook("Training2.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 
-for i in xrange(sheet_x1.nrows):
+for i in range(sheet_x1.nrows):
     x_training.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_training.append(expand(int(sheet_y.cell(i, 0).value)))
 
-print "Loading Training data 3..."
+print("Loading Training data 3...")
 book_x = xlrd.open_workbook("Training3.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 
-for i in xrange(sheet_x1.nrows):
+for i in range(sheet_x1.nrows):
     x_training.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_training.append(expand(int(sheet_y.cell(i, 0).value)))
 
-print "Loading Verification data..."
+print("Loading Verification data...")
 book_x = xlrd.open_workbook("Verification.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 sheet_y = book_x.sheet_by_index(2)
 
-for i in xrange(sheet_x1.nrows):
+for i in range(sheet_x1.nrows):
     x_verification.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
     y_verification.append(expand(int(sheet_y.cell(i, 0).value)))
 
@@ -117,7 +117,7 @@ for step in range(5000):
         ret2 = sess.run(t1, feed_dict={x: x_verification})
         ret3 = sel_max(ret2)
         acc2 = acc(ret3, sel_max(y_verification))*100
-        print step, sess.run(cost, feed_dict={x: x_training, y: y_training}), acc1, acc2, [ret1.count(0), ret1.count(1)]
+        print(step, sess.run(cost, feed_dict={x: x_training, y: y_training}), acc1, acc2, [ret1.count(0), ret1.count(1)])
 
         saver.save(sess, 'model_bin.ckpt')
 

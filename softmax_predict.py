@@ -6,7 +6,7 @@ import tensorflow as tf
 
 def sel_max(data, col_cnt):
     ret_ind = []
-    for i in xrange(col_cnt):
+    for i in range(col_cnt):
         if data[i][0] == 1:
             ret_ind.append(0)
         else:
@@ -30,13 +30,13 @@ x_test = []
 y_test = []
 
 
-print "Loading Test data..."
+print("Loading Test data...")
 book_x = xlrd.open_workbook("Test_data.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 COLS_TEST = 16906
 
-for i in xrange(COLS_TEST):
+for i in range(COLS_TEST):
     x_test.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
 
 
@@ -74,7 +74,7 @@ prec_data = sel_max(ret, COLS_TEST)
 book_out1 = xlwt.Workbook(encoding="utf-8")
 sheet_out1 = book_out1.add_sheet("sheet1")
 
-for i in xrange(COLS_TEST):
+for i in range(COLS_TEST):
     sheet_out1.write(i, 0, 1-prec_data[i])
 
 book_out1.save("softmax_Predictor.xls")

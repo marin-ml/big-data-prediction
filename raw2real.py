@@ -14,11 +14,11 @@ def conv_data(f_in, f_out, type_data):
 
     for i in range(sheet_in.nrows):
         if i % 10 == 0:
-            print i
+            print(i)
         row_data = sheet_in.row_values(i)
         out_data = func.get_real(type_data, row_data)
         sheet_out_y.write(i, 0, func.bigger0(row_data[1]))
-        for j in xrange(1, out_data.__len__()):
+        for j in range(1, out_data.__len__()):
             if j < 240:
                 sheet_out1.write(i, j - 1, out_data[j])
             else:
@@ -27,7 +27,7 @@ def conv_data(f_in, f_out, type_data):
     book_out.save(f_out)
 
 
-print "Reading Type List file ..."
+print("Reading Type List file ...")
 type_list = func.load_type("Type.xls")
 
 conv_data("test1.xlsx", "test.xls", type_list)

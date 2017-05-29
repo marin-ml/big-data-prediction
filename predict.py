@@ -16,7 +16,7 @@ def xaver_init(n_inputs, n_outputs, uniform = True):
 
 def sel_max(data, col_cnt):
     ret_ind = []
-    for i in xrange(col_cnt):
+    for i in range(col_cnt):
         if data[i][0] == 1:
             ret_ind.append(0)
         else:
@@ -30,13 +30,13 @@ x_test = []
 y_test = []
 
 
-print "Loading Test data ..."
+print("Loading Test data ...")
 book_x = xlrd.open_workbook("Test_data.xls")
 sheet_x1 = book_x.sheet_by_index(0)
 sheet_x2 = book_x.sheet_by_index(1)
 ROWS_TEST = sheet_x1.nrows
 
-for i in xrange(ROWS_TEST):
+for i in range(ROWS_TEST):
     x_test.append(sheet_x1.row_values(i) + sheet_x2.row_values(i))
 
 
@@ -58,19 +58,18 @@ sess = tf.Session()
 saver = tf.train.Saver()
 sess.run(init)
 
-print ('load learning ...')
+print('load learning ...')
 saver.restore(sess, 'model_bin.ckpt')
 
-print ('Prediction test data ...')
+print('Prediction test data ...')
 ret = sess.run(t1, feed_dict={x: x_test})
 prec_data = sel_max(ret, ROWS_TEST)
 
 book_out1 = xlwt.Workbook(encoding="utf-8")
 sheet_out1 = book_out1.add_sheet("sheet1")
 
-for i in xrange(ROWS_TEST):
+for i in range(ROWS_TEST):
     sheet_out1.write(i, 0, prec_data[i])
 
 book_out1.save("Data_prediction.xls")
-print ('Finished successfully')
-
+print('Finished successfully')
